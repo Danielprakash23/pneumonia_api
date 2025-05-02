@@ -1,0 +1,8 @@
+django
+djangorestframework
+djangorestframework_simplejwt
+django-cors-headers
+tensorflow
+keras
+medmnist
+numpy
