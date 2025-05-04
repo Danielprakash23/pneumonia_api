@@ -76,7 +76,8 @@ class PneumoniaList(APIView):
                 'city':req_data['city'],
                 'severity_level': round(predict * 100, 2),
                 'suggestion': suggestion_data,
-                'result': result
+                'result': result,
+                'user_id': int(req_data['user_id'])
             }
             
             serializer = PhenmoniaDetailSerializer(data = data)
@@ -96,9 +97,15 @@ class PneumoniaList(APIView):
         
         try:
             
-            queryset = PneumoniaDetail.objects.all()
+            user_id = request.GET.get('user_id', None)
+            
+            if not user_id:
+                return Response({"message": "Authentication Required"})
+            
+            user_id = int(user_id)
+            queryset = PneumoniaDetail.objects.filter(user_id=user_id)
             
             serializer = PhenmoniaDetailSerializer(queryset, many=True)
             return Response(serializer.data)
         except Exception as e:
-            print(str(e))
+            return Response({"message": "Authentication Required"})

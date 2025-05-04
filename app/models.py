@@ -5,6 +5,7 @@ from django.db import models
 class PneumoniaDetail(models.Model):
     
     age = models.IntegerField()
+    user_id = models.IntegerField(null=True)
     gender = models.CharField(max_length=10)
     city = models.CharField(max_length=50)
     image = models.CharField(max_length=1000)
